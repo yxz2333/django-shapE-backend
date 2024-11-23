@@ -1,0 +1,12 @@
+__pycache__/
+.DS_Store
+*.egg-info/
+samples/
+env/
+Scripts/
+shap_e/
+shap_e.egg-info/
+shap_e_model_cache/
+.idea/
+Lib/
+setup.py
