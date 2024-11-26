@@ -10,3 +10,5 @@ shap_e_model_cache/
 .idea/
 Lib/
 setup.py
+.trunk/
+output/
