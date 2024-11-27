@@ -68,6 +68,14 @@ def generate_text(request) -> HttpResponse:
         status : <int>{ 200, 404, 500 }
     }
     """
+    global model
+    try:
+        if model is None:
+            raise RuntimeError("模型尚未加载")
+    except Exception as e:
+        logging.error(str(e))
+        return HttpResponse(str(e), status=500)
+
     CURRENT_TIME = _get_time()  # 获取当前时间，命名用
     data = request.data
 
@@ -78,14 +86,6 @@ def generate_text(request) -> HttpResponse:
     os.makedirs(ply_dir, exist_ok=True)  # exist_ok=True 防止文件夹存在抛异常
     os.makedirs(obj_dir, exist_ok=True)
     os.makedirs(gif_dir, exist_ok=True)
-
-    global model
-    try:
-        if model is None:
-            raise RuntimeError("模型尚未加载")
-    except Exception as e:
-        logging.error(str(e))
-        return HttpResponse(str(e), status=500)
 
     ## 从 req 里获取数据
     prompt = data.get("prompt")
